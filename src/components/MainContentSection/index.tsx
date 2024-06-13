@@ -1,9 +1,11 @@
+import { Autoplay } from "swiper/modules";
 import IShow from "../../core/interfaces/IShow";
 import { MaxWidthLayout } from "../../layout/MainLayout";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 function MainContentItem({ show }: { show: IShow }) {
   return (
-    <div className="flex flex-col items-stretch flex-1 bg-black/[0.38] h-[65vh]">
+    <>
       <div
         className={
           "select-none absolute bg-center bg-no-repeat h-[65vh] w-full overflow-hidden bg-cover"
@@ -78,14 +80,36 @@ function MainContentItem({ show }: { show: IShow }) {
           </MaxWidthLayout>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default function MainContentSection({ shows = [] }: { shows: IShow[] }) {
   return (
-    <section className="min-h-[65vh] flex items-stretch text-white border-b border-white/[0.24]">
-      {shows.length > 0 && <MainContentItem show={shows[0]} />}
+    <section className="min-h-[65vh] flex flex-col items-stretch text-white border-b border-white/[0.24]">
+      <Swiper
+        spaceBetween={0}
+        slidesPerView={1}
+        scrollbar={{ draggable: true }}
+        className="h-[65vh] w-full"
+        direction="horizontal"
+        loop={shows.length > 0}
+        centeredSlides={true}
+        autoplay={{
+          delay: 6000,
+          disableOnInteraction: true,
+        }}
+        fadeEffect={{
+          crossFade: true,
+        }}
+        modules={[Autoplay]}
+      >
+        {shows.map((show, idx) => (
+          <SwiperSlide key={idx}>
+            <MainContentItem show={show} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 }

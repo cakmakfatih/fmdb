@@ -7,6 +7,7 @@ import MainLayout from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
 import { homeLoadPopular } from "./store/HomeStore/homeActions.ts";
+import "swiper/css";
 
 const router = createBrowserRouter([
   {
