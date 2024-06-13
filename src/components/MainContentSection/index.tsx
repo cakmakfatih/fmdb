@@ -87,29 +87,26 @@ function MainContentItem({ show }: { show: IShow }) {
 export default function MainContentSection({ shows = [] }: { shows: IShow[] }) {
   return (
     <section className="min-h-[65vh] flex flex-col items-stretch text-white border-b border-white/[0.24]">
-      <Swiper
-        spaceBetween={0}
-        slidesPerView={1}
-        scrollbar={{ draggable: true }}
-        className="h-[65vh] w-full"
-        direction="horizontal"
-        loop={shows.length > 0}
-        centeredSlides={true}
-        autoplay={{
-          delay: 6000,
-          disableOnInteraction: true,
-        }}
-        fadeEffect={{
-          crossFade: true,
-        }}
-        modules={[Autoplay]}
-      >
-        {shows.map((show, idx) => (
-          <SwiperSlide key={idx}>
-            <MainContentItem show={show} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {shows.length > 0 && (
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={1}
+          scrollbar={{ draggable: true }}
+          className="h-[65vh] w-full"
+          direction="horizontal"
+          loop={true}
+          autoplay={{
+            delay: 6000,
+          }}
+          modules={[Autoplay]}
+        >
+          {shows.map((show, idx) => (
+            <SwiperSlide key={idx}>
+              <MainContentItem show={show} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </section>
   );
 }

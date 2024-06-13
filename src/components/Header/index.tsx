@@ -1,9 +1,27 @@
+import { connect } from "react-redux";
 import { MaxWidthLayout } from "../../layout/MainLayout";
+import { RootState } from "../../store";
+import { MainState } from "../../store/MainStore/mainSlice";
 
-export function Header() {
+function mapStateToProps(state: RootState): MainState {
+  return state.main;
+}
+
+function Header(props: MainState) {
+  const { isHeaderSticky } = props;
+
   return (
     <header className="flex justify-between items-stretch flex-col border-b border-slate-700 z-10">
-      <section className="flex bg-black text-white py-4 border-b border-gray-700 px-4 flex-1 items-stretch justify-center">
+      <section
+        className="flex bg-black text-white py-4 border-b border-gray-700 px-4 flex-1 items-stretch justify-center"
+        style={
+          isHeaderSticky
+            ? {
+                marginBottom: 44,
+              }
+            : {}
+        }
+      >
         <MaxWidthLayout className="justify-between select-none">
           <div className="flex items-center px-2 flex-1">
             <svg
@@ -33,7 +51,18 @@ export function Header() {
           <div className="flex items-end justify-center px-2 flex-col"></div>
         </MaxWidthLayout>
       </section>
-      <section className="flex bg-black text-white flex-1 items-stretch justify-center">
+      <section
+        className="flex bg-black text-white flex-1 items-stretch justify-center"
+        style={
+          isHeaderSticky
+            ? {
+                position: "fixed",
+                width: "100%",
+                background: "#000000cc",
+              }
+            : {}
+        }
+      >
         <MaxWidthLayout className="select-none mx-6">
           <nav className="flex-1 flex justify-between">
             <ul className="flex items-stretch">
@@ -83,3 +112,5 @@ export function Header() {
     </header>
   );
 }
+
+export default connect(mapStateToProps)(Header);

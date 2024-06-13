@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import store from "./store/";
 import { homeLoadPopular } from "./store/HomeStore/homeActions.ts";
 import "swiper/css";
+import { toggleStickyHeader } from "./store/MainStore/mainSlice.ts";
+import { HEADER_HEIGHT } from "./core/globals.ts";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,16 @@ const router = createBrowserRouter([
 ]);
 
 store.dispatch(homeLoadPopular());
+window.onscroll = (_) => {
+  if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {
+    store.dispatch(toggleStickyHeader(true));
+  } else if (
+    window.scrollY < HEADER_HEIGHT &&
+    store.getState().main.isHeaderSticky
+  ) {
+    store.dispatch(toggleStickyHeader(false));
+  }
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
