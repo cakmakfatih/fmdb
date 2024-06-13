@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly TMDB_AUTH_TOKEN: string;
+  readonly VITE_TMDB_AUTH_TOKEN: string;
 }
 
 interface ImportMeta {
