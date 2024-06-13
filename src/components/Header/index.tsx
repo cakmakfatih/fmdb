@@ -26,18 +26,11 @@ export function Header() {
             <input
               type="text"
               placeholder="Search.."
-              className="p-2 px-3 ml-4 flex-1 rounded bg-gray-700 focus:bg-gray-500 outline-none focus:ring-white/[0.82] transition-all duration-75 focus:ring-1 border-none"
+              className="p-2 px-3 ml-4 flex-1 rounded bg-gray-700 focus:bg-gray-600 outline-none focus:ring-slate-300 transition-all duration-75 focus:ring-2 border-none"
             />
             <div className="flex-[2]"></div>
           </div>
-          <div className="flex items-end justify-center px-2 flex-col">
-            <button className="min-w-[120px] border font-medium transition-all duration-75 text-sm border-white/[0.42] bg-black/[0.12] hover:bg-red-600 active:bg-red-800 px-5 py-2 mr-2 rounded-full">
-              Sign In
-            </button>
-            <span className="text-sm mr-3 mt-1 opacity-55 hover:opacity-90 click:opacity-100 cursor-pointer">
-              Not a member? Sign up!
-            </span>
-          </div>
+          <div className="flex items-end justify-center px-2 flex-col"></div>
         </MaxWidthLayout>
       </section>
       <section className="flex bg-black text-white flex-1 items-stretch justify-center">

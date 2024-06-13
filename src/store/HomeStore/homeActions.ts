@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import httpClient from "../../core/HttpClient";
 import axios from "axios";
 import IShow, { MediaType } from "../../core/interfaces/IShow";
+import { TMDB_BACKDROP_PREFIX, TMDB_POSTER_PREFIX } from "../../core/globals";
 
 interface PopularItemsResult {
   page: number;
@@ -39,7 +40,11 @@ export interface PopularShows {
 
 export const homeLoadPopular = createAsyncThunk(
   "home/homeLoadPopular",
-  async (page: number = 1): Promise<PopularShows | undefined> => {
+  async (page?: number): Promise<PopularShows | undefined> => {
+    if (typeof page === "undefined") {
+      page = 1;
+    }
+
     const response = await httpClient.get<PopularItemsResult>(
       "/trending/all/week",
       {
@@ -55,30 +60,28 @@ export const homeLoadPopular = createAsyncThunk(
 
     return {
       currentPage: data.page,
-      nextPage: data.total_pages < data.page ? data.page + 1 : data.page,
+      nextPage: data.total_pages > data.page ? data.page + 1 : data.page,
       lastPage: data.total_pages,
-      items: data.results.map<IShow>((i) => {
-        return {
-          adult: i.adult,
-          backdropPath: i.backdrop_path,
-          firstAirDate: i.first_air_date,
-          releaseDate: i.release_date,
-          genreIds: i.genre_ids,
-          id: i.id,
-          mediaType: i.media_type,
-          name: i.name,
-          title: i.title,
-          originCountry: i.origin_country,
-          originalLanguage: i.original_language,
-          originalName: i.original_name,
-          originalTitle: i.original_title,
-          overview: i.overview,
-          popularity: i.popularity,
-          posterPath: i.poster_path,
-          voteAverage: i.vote_average,
-          voteCount: i.vote_count,
-        };
-      }),
+      items: data.results.map<IShow>((i) => ({
+        adult: i.adult,
+        backdropPath: TMDB_BACKDROP_PREFIX + i.backdrop_path,
+        firstAirDate: i.first_air_date,
+        releaseDate: i.release_date,
+        genreIds: i.genre_ids,
+        id: i.id,
+        mediaType: i.media_type,
+        name: i.name,
+        title: i.title,
+        originCountry: i.origin_country,
+        originalLanguage: i.original_language,
+        originalName: i.original_name,
+        originalTitle: i.original_title,
+        overview: i.overview,
+        popularity: i.popularity,
+        posterPath: TMDB_POSTER_PREFIX + i.poster_path,
+        voteAverage: i.vote_average,
+        voteCount: i.vote_count,
+      })),
     };
   }
 );

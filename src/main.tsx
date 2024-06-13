@@ -6,6 +6,7 @@ import HomePage from "./pages/Home/index.tsx";
 import MainLayout from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
+import { homeLoadPopular } from "./store/HomeStore/homeActions.ts";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,8 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
 ]);
+
+store.dispatch(homeLoadPopular());
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
