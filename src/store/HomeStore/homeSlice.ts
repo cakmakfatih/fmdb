@@ -1,12 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import IMovie from "../../core/interfaces/movie.interface";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { homeLoadPopular, PopularShows } from "./homeActions";
 
 export interface HomeState {
-  mainContent: IMovie[];
+  popularShows: PopularShows;
 }
 
 const initialState: HomeState = {
-  mainContent: [],
+  popularShows: {
+    currentPage: 0,
+    nextPage: 1,
+    lastPage: undefined,
+    items: [],
+  },
 };
 
 const homeSlice = createSlice({
@@ -14,17 +19,20 @@ const homeSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(homeLoadAsync.fulfilled, (state) => {
-      state.mainContent = [];
-    });
+    builder.addCase(
+      homeLoadPopular.fulfilled,
+      (state, action: PayloadAction<PopularShows | undefined>) => {
+        if (action.payload === undefined) return;
+
+        if (state.popularShows.currentPage !== action.payload.currentPage) {
+          state.popularShows = {
+            ...action.payload,
+            items: [...state.popularShows.items, ...action.payload.items],
+          };
+        }
+      }
+    );
   },
 });
-
-export const homeLoadAsync = createAsyncThunk(
-  "home/homeLoadAsync",
-  async () => {
-    return null;
-  }
-);
 
 export default homeSlice.reducer;

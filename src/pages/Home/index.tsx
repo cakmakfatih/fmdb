@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ListSection from "../../components/ListSection";
 import { MaxWidthLayout } from "../../layout/MainLayout";
 import { useAppDispatch } from "../../store/hooks";
-import { homeLoadAsync } from "../../store/HomeStore/homeSlice";
+import { homeLoadPopular } from "../../store/HomeStore/homeActions";
 
 function MainContentSection() {
   return (
@@ -86,7 +86,7 @@ export default function HomePage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(homeLoadAsync());
+    dispatch(homeLoadPopular());
   }, []);
 
   return (
