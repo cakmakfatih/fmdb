@@ -1,3 +1,1 @@
-export default interface MovieDetails {
-    
-}
+export default interface MovieDetails {}

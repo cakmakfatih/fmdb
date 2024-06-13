@@ -1,3 +1,1 @@
-export default interface IMovie {
-    
-}
+export default interface IMovie {}
