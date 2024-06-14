@@ -42,11 +42,13 @@ function ShowCardGenres({
   });
 
   return (
-    <div className="bg-transparent flex overflow-x-hidden uppercase items-center font-bold mt-2">
+    <div className="bg-transparent flex overflow-x-hidden items-center font-bold mt-2">
       {(genresStr.length > 2 ? genresStr.slice(0, 3) : genresStr).map(
         (genre, idx) => (
           <span
-            className="transition-colors text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-500/[0.42] shadow-xl bg-transparent text-yellow-500 hover:bg-slate-600 rounded-md truncate"
+            key={idx}
+            title={genre}
+            className="transition-colors text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-500/[0.42] shadow-xl bg-transparent text-white hover:bg-slate-600 rounded-md truncate"
             style={
               idx === 0
                 ? { marginLeft: 0 }
@@ -54,7 +56,6 @@ function ShowCardGenres({
                 ? { marginRight: 0 }
                 : {}
             }
-            key={idx}
           >
             {genre}
           </span>
@@ -81,6 +82,9 @@ function ShowCard({
       <div className="flex flex-col flex-1 items-stretch border border-yellow-800 hover:border-yellow-400 hover:bg-black/[0.54] cursor-pointer transition-colors self-stretch">
         <Rating rating={show.voteAverage} />
         <div className="flex-1"></div>
+        <span className="my-2 mx-4 self-start border border-slate-800 text-black font-bold px-2 py-[1px] uppercase text-sm rounded-sm flex items-center bg-yellow-500">
+          {show.mediaType === MediaType.Movie ? "Movie" : "TV Show"}
+        </span>
         <div className="flex-col  bg-black/[0.76] border-t border-yellow-600 flex items-stretch py-2 px-2">
           <div className="flex">
             <h1
@@ -89,9 +93,6 @@ function ShowCard({
             >
               {show.name ?? show.title}
             </h1>
-            <span className="ml-1 bg-yellow-500 text-black font-bold px-2 py-[1px] uppercase text-sm rounded-sm flex items-center">
-              {show.mediaType === "movie" ? "Movie" : "TV Show"}
-            </span>
           </div>
           <ShowCardGenres show={show} genres={genres} />
         </div>

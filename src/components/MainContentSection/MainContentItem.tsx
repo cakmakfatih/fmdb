@@ -61,7 +61,7 @@ function MainContentItem({
               {genresStr.map((genre, idx) => (
                 <span
                   key={idx}
-                  className="p-2 px-4 border border-white/[0.24] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-transparent"
+                  className="p-2 px-4 border border-white/[0.24] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-transparent mr-2"
                 >
                   {genre}
                 </span>
