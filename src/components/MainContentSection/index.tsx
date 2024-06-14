@@ -2,18 +2,37 @@ import { Autoplay } from "swiper/modules";
 import IShow from "../../core/interfaces/IShow";
 import { MaxWidthLayout } from "../../layout/MainLayout";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { motion } from "framer-motion";
 
-function MainContentItem({ show }: { show: IShow }) {
+function MainContentItem({
+  show,
+  animDelay,
+}: {
+  show: IShow;
+  animDelay: number;
+}) {
   return (
     <>
-      <div
+      <motion.div
         className={
-          "select-none absolute bg-center bg-no-repeat h-[65vh] w-full overflow-hidden bg-cover"
+          "select-none absolute bg-no-repeat h-[65vh] w-full overflow-hidden bg-cover transition-all ease-linear"
         }
         style={{
           backgroundImage: `url('${show.backdropPath}')`,
         }}
-      ></div>
+        initial={{
+          backgroundPositionY: "100%",
+        }}
+        animate={{
+          backgroundPositionY: "0%",
+        }}
+        transition={{
+          delay: animDelay,
+          duration: 12,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      ></motion.div>
       <div className="absolute h-[65vh] w-full flex flex-col from-black to-70% bg-gradient-to-t">
         <div className="select-none flex-1"></div>
         <div className="justify-end py-4 flex flex-col items-center px-2 from-black to-100% bg-gradient-to-t">
@@ -102,7 +121,7 @@ export default function MainContentSection({ shows = [] }: { shows: IShow[] }) {
         >
           {shows.map((show, idx) => (
             <SwiperSlide key={idx}>
-              <MainContentItem show={show} />
+              <MainContentItem show={show} animDelay={idx * 3} />
             </SwiperSlide>
           ))}
         </Swiper>
