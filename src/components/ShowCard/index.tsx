@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import IShow, { MediaType } from "../../core/interfaces/IShow";
 import { RootState } from "../../store";
 import { MainState } from "../../store/MainStore/mainSlice";
+import { genresIdsToString } from "../../core/helpers";
 
 function Rating({ rating }: { rating: number }) {
   return (
@@ -34,24 +35,18 @@ function ShowCardGenres({
   show: IShow;
   genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
 }) {
-  const genresStr: string[] = [];
-
-  if (show.mediaType === MediaType.Movie) {
-    for (let genreId of show.genreIds) {
-      if (genreId in genres.movie) genresStr.push(genres.movie[genreId]);
-    }
-  } else if (show.mediaType === MediaType.Tv) {
-    for (let genreId of show.genreIds) {
-      if (genreId in genres.tvShow) genresStr.push(genres.tvShow[genreId]);
-    }
-  }
+  const genresStr = genresIdsToString({
+    mediaType: show.mediaType,
+    genreIds: show.genreIds,
+    genres: genres,
+  });
 
   return (
     <div className="bg-transparent flex overflow-x-hidden uppercase items-center font-bold mt-2">
       {(genresStr.length > 2 ? genresStr.slice(0, 3) : genresStr).map(
         (genre, idx) => (
           <span
-            className="transition-colors text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-500/[0.42] shadow-xl bg-transparent text-yellow-500 hover:bg-slate-600 rounded-md"
+            className="transition-colors text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-500/[0.42] shadow-xl bg-transparent text-yellow-500 hover:bg-slate-600 rounded-md truncate"
             style={
               idx === 0
                 ? { marginLeft: 0 }
@@ -78,12 +73,12 @@ function ShowCard({
 }) {
   return (
     <article
-      className="flex self-stretch flex-col flex-1 items-stretch min-w-[300px] h-[450px] mr-4 bg-cover"
+      className="flex self-center flex-col items-stretch max-w-[300px] min-w-[300px] h-[450px] mr-4 bg-center bg-no-repeat bg-cover"
       style={{
         backgroundImage: `url('${show.posterPath}')`,
       }}
     >
-      <div className="flex flex-col flex-1 items-stretch border border-yellow-800 hover:border-yellow-400 hover:bg-black/[0.54] cursor-pointer transition-colors">
+      <div className="flex flex-col flex-1 items-stretch border border-yellow-800 hover:border-yellow-400 hover:bg-black/[0.54] cursor-pointer transition-colors self-stretch">
         <Rating rating={show.voteAverage} />
         <div className="flex-1"></div>
         <div className="flex-col  bg-black/[0.76] border-t border-yellow-600 flex items-stretch py-2 px-2">

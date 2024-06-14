@@ -54,7 +54,7 @@ export default function ListSection({
           </svg>
           <section
             ref={scrollableContentRef}
-            className="flex overflow-x-scroll items-stretch mt-6 scrollbar-hide"
+            className="flex overflow-x-scroll items-center mt-6 scrollbar-hide"
           >
             {shows.map((show, idx) => (
               <ShowCard key={idx} show={show} />

@@ -1,8 +1,8 @@
 import { TMDB_BACKDROP_PREFIX, TMDB_POSTER_PREFIX } from "./globals";
-import { IApiResponseItem } from "./interfaces/IApiShowResponse";
-import IShow from "./interfaces/IShow";
+import { IApiShowResponseItem } from "./interfaces/IApiShowResponse";
+import IShow, { MediaType } from "./interfaces/IShow";
 
-export function apiResponseToShow(media: IApiResponseItem): IShow {
+export function apiResponseToShow(media: IApiShowResponseItem): IShow {
   return {
     adult: media.adult,
     backdropPath: TMDB_BACKDROP_PREFIX + media.backdrop_path,
@@ -23,4 +23,28 @@ export function apiResponseToShow(media: IApiResponseItem): IShow {
     voteAverage: media.vote_average,
     voteCount: media.vote_count,
   };
+}
+
+export function genresIdsToString({
+  mediaType,
+  genreIds,
+  genres,
+}: {
+  mediaType: MediaType;
+  genreIds: number[];
+  genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
+}): string[] {
+  const genresStr: string[] = [];
+
+  if (mediaType === MediaType.Movie) {
+    for (let genreId of genreIds) {
+      if (genreId in genres.movie) genresStr.push(genres.movie[genreId]);
+    }
+  } else if (mediaType === MediaType.Tv) {
+    for (let genreId of genreIds) {
+      if (genreId in genres.tvShow) genresStr.push(genres.tvShow[genreId]);
+    }
+  }
+
+  return genresStr;
 }
