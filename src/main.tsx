@@ -6,7 +6,7 @@ import HomePage from "./pages/Home/index.tsx";
 import MainLayout from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
-import { homeLoadPopular } from "./store/HomeStore/homeActions.ts";
+import { homeLoadTrending } from "./store/HomeStore/homeAsyncThunks.ts";
 import "swiper/css";
 import { toggleStickyHeader } from "./store/MainStore/mainSlice.ts";
 import { HEADER_HEIGHT } from "./core/globals.ts";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-store.dispatch(homeLoadPopular());
+store.dispatch(homeLoadTrending());
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {
     store.dispatch(toggleStickyHeader(true));

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { homeLoadPopular, PopularShows } from "./homeActions";
+import { homeLoadTrending, PopularShows } from "./homeAsyncThunks";
 
 export interface HomeState {
   popularShows: PopularShows;
@@ -20,9 +20,9 @@ const homeSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
-      homeLoadPopular.fulfilled,
-      (state, action: PayloadAction<PopularShows | undefined>) => {
-        if (action.payload === undefined) return;
+      homeLoadTrending.fulfilled,
+      (state, action: PayloadAction<PopularShows | null>) => {
+        if (action.payload === null) return;
 
         if (state.popularShows.currentPage !== action.payload.currentPage) {
           state.popularShows = {
