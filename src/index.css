@@ -2,7 +2,7 @@
 @tailwind utilities;
 @tailwind components;
 
-@layer base {
+@layer html {
   @font-face {
     font-family: "Inter";
     font-weight: 400;
@@ -25,5 +25,15 @@
     font-style: bold;
     src: local("sans-serif"), url(/fonts/Inter-Bold.ttf), format("truetype");
     font-display: swap;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }

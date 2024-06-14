@@ -1,4 +1,4 @@
-import { Autoplay } from "swiper/modules";
+import { A11y, Autoplay } from "swiper/modules";
 import IShow from "../../core/interfaces/IShow";
 import { MaxWidthLayout } from "../../layout/MainLayout";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -110,14 +110,13 @@ export default function MainContentSection({ shows = [] }: { shows: IShow[] }) {
         <Swiper
           spaceBetween={0}
           slidesPerView={1}
-          scrollbar={{ draggable: true }}
           className="h-[65vh] w-full"
           direction="horizontal"
           loop={true}
           autoplay={{
             delay: 6000,
           }}
-          modules={[Autoplay]}
+          modules={[Autoplay, A11y]}
         >
           {shows.map((show, idx) => (
             <SwiperSlide key={idx}>

@@ -10,6 +10,10 @@ import { homeLoadTrending } from "./store/HomeStore/homeAsyncThunks.ts";
 import "swiper/css";
 import { toggleStickyHeader } from "./store/MainStore/mainSlice.ts";
 import { HEADER_HEIGHT } from "./core/globals.ts";
+import {
+  getMovieGenres,
+  getTvShowGenres,
+} from "./store/MainStore/mainAsyncThunks.ts";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +22,10 @@ const router = createBrowserRouter([
   },
 ]);
 
+store.dispatch(getMovieGenres());
+store.dispatch(getTvShowGenres());
 store.dispatch(homeLoadTrending());
+
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {
     store.dispatch(toggleStickyHeader(true));

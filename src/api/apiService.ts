@@ -1,20 +1,53 @@
 import axios from "axios";
 import httpClient from "../core/httpClient";
-import { IApiResponse } from "../core/interfaces/IApiResponse";
+import { IApiShowResponse } from "../core/interfaces/IApiShowResponse";
+
+enum Routes {
+  getTrendingAllWeek = "/trending/all/week",
+  getMovieGenres = "/genre/movie/list",
+  getTvShowGenres = "/genre/tv/list",
+}
 
 interface ApiService {
-  GetTrendingAll(page?: number): Promise<IApiResponse | null>;
+  getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null>;
+  getMovieGenres(): Promise<IApiGenreResponse | null>;
+  getTvShowGenres(): Promise<IApiGenreResponse | null>;
 }
 
 const apiService: ApiService = {
-  async GetTrendingAll(page?: number) {
+  async getTrendingAllWeek(page?: number) {
     if (typeof page === "undefined") {
       page = 1;
     }
 
-    const response = await httpClient.get<IApiResponse>("/trending/all/week", {
-      params: { page: page },
-    });
+    const response = await httpClient<IApiShowResponse>(
+      Routes.getTrendingAllWeek,
+      {
+        params: { page: page },
+      }
+    );
+
+    if (response.status !== axios.HttpStatusCode.Ok) {
+      return null;
+    }
+
+    return response.data;
+  },
+
+  async getMovieGenres(): Promise<IApiGenreResponse | null> {
+    const response = await httpClient<IApiGenreResponse>(Routes.getMovieGenres);
+
+    if (response.status !== axios.HttpStatusCode.Ok) {
+      return null;
+    }
+
+    return response.data;
+  },
+
+  async getTvShowGenres(): Promise<IApiGenreResponse | null> {
+    const response = await httpClient<IApiGenreResponse>(
+      Routes.getTvShowGenres
+    );
 
     if (response.status !== axios.HttpStatusCode.Ok) {
       return null;

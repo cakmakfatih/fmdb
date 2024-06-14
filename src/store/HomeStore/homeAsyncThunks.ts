@@ -3,7 +3,7 @@ import IShow from "../../core/interfaces/IShow";
 import { apiResponseToShow } from "../../core/helpers";
 import apiService from "../../api/apiService";
 
-export interface PopularShows {
+export interface TrendingShows {
   currentPage: number;
   nextPage: number;
   lastPage?: number;
@@ -12,8 +12,8 @@ export interface PopularShows {
 
 export const homeLoadTrending = createAsyncThunk(
   "home/homeLoadTrending",
-  async (page?: number): Promise<PopularShows | null> => {
-    const data = await apiService.GetTrendingAll(page);
+  async (page?: number): Promise<TrendingShows | null> => {
+    const data = await apiService.getTrendingAllWeek(page);
 
     if (data === null) {
       return null;

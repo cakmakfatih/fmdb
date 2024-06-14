@@ -1,6 +1,6 @@
 import { MediaType } from "./IShow";
 
-export interface IApiResponseItem {
+export interface IApiShowResponseItem {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -22,9 +22,9 @@ export interface IApiResponseItem {
   vote_count: 6043;
 }
 
-export interface IApiResponse {
+export interface IApiShowResponse {
   page: number;
   total_pages: number;
   total_results: number;
-  results: IApiResponseItem[];
+  results: IApiShowResponseItem[];
 }

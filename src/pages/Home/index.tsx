@@ -9,15 +9,18 @@ function mapStateToProps(state: RootState): HomeState {
 }
 
 function HomePage(props: HomeState) {
-  const { popularShows } = props;
+  const { trendingShows } = props;
 
   return (
     <>
-      <MainContentSection shows={[...popularShows.items.slice(0, 5)]} />
-      <ListSection title="Upcoming" />
-      <ListSection title="Trending" />
-      <ListSection title="Popular" />
-      <ListSection title="Top Rated" />
+      <MainContentSection shows={[...trendingShows.items.slice(0, 5)]} />
+      <ListSection title="Bookmarked" shows={trendingShows.items} />
+      <ListSection title="Trending" shows={trendingShows.items} />
+      <ListSection title="Popular" shows={trendingShows.items} />
+      <ListSection title="Top Rated" shows={trendingShows.items} />
+      <ListSection title="Trending" shows={trendingShows.items} />
+      <ListSection title="Popular" shows={trendingShows.items} />
+      <ListSection title="Top Rated" shows={trendingShows.items} />
     </>
   );
 }

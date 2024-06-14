@@ -1,5 +1,5 @@
 import { TMDB_BACKDROP_PREFIX, TMDB_POSTER_PREFIX } from "./globals";
-import { IApiResponseItem } from "./interfaces/IApiResponse";
+import { IApiResponseItem } from "./interfaces/IApiShowResponse";
 import IShow from "./interfaces/IShow";
 
 export function apiResponseToShow(media: IApiResponseItem): IShow {
