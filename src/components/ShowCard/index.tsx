@@ -6,7 +6,7 @@ import { genresIdsToString } from "../../core/helpers";
 
 function Rating({ rating }: { rating: number }) {
   return (
-    <div className="mt-6 bg-yellow-500 text-black font-bold self-start px-2 py-2 rounded-tr-lg rounded-br-lg border-t border-r border-b text-xl border-yellow-600 flex items-center">
+    <div className="mt-6 bg-yellow-400 text-black font-bold self-start px-2 py-2 rounded-tr-lg rounded-br-lg border-t border-r border-b text-xl border-yellow-600 flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -48,7 +48,7 @@ function ShowCardGenres({
           <span
             key={idx}
             title={genre}
-            className="transition-colors text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-500/[0.42] shadow-xl bg-transparent text-white hover:bg-slate-600 rounded-md truncate"
+            className="transition-colors text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-400/[0.42] shadow-xl bg-transparent text-white hover:bg-slate-600 rounded-md truncate"
             style={
               idx === 0
                 ? { marginLeft: 0 }
@@ -82,7 +82,7 @@ function ShowCard({
       <div className="flex flex-col flex-1 items-stretch border border-yellow-800 hover:border-yellow-400 hover:bg-black/[0.54] cursor-pointer transition-colors self-stretch">
         <Rating rating={show.voteAverage} />
         <div className="flex-1"></div>
-        <span className="my-2 mx-4 self-start border border-slate-800 text-black font-bold px-2 py-[1px] uppercase text-sm rounded-sm flex items-center bg-yellow-500">
+        <span className="my-2 mx-3 self-start border-slate-800 text-black font-bold px-2 py-[1px] uppercase text-sm rounded-sm flex items-center bg-yellow-400 border-4">
           {show.mediaType === MediaType.Movie ? "Movie" : "TV Show"}
         </span>
         <div className="flex-col  bg-black/[0.76] border-t border-yellow-600 flex items-stretch py-2 px-2">

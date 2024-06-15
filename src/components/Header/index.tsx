@@ -13,7 +13,7 @@ function Header(props: MainState) {
   return (
     <header className="flex justify-between items-stretch flex-col border-b border-slate-700 z-10">
       <section
-        className="flex bg-black text-white py-4 border-b border-gray-700 px-4 flex-1 items-stretch justify-center"
+        className="flex bg-gray-800 text-white py-4 border-b border-gray-700 px-4 flex-1 items-stretch justify-center"
         style={
           isHeaderSticky
             ? {
@@ -52,13 +52,13 @@ function Header(props: MainState) {
         </MaxWidthLayout>
       </section>
       <section
-        className="flex bg-black text-white flex-1 items-stretch justify-center"
+        className="flex bg-gray-700 text-white flex-1 items-stretch justify-center"
         style={
           isHeaderSticky
             ? {
                 position: "fixed",
                 width: "100%",
-                background: "#000000cc",
+                background: "rgba(55, 65, 81, 0.8)",
               }
             : {}
         }

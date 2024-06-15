@@ -43,7 +43,7 @@ export default function ListSection({
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="size-60 text-yellow-500 self-center mr-2 hidden sm:block hover:text-white cursor-pointer transition-colors active:text-yellow-500"
+            className="size-60 text-yellow-400 self-center mr-2 hidden sm:block hover:text-white cursor-pointer transition-colors active:text-yellow-400"
             onClick={onPrevClicked}
           >
             <path
@@ -66,7 +66,7 @@ export default function ListSection({
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="size-60 text-yellow-500 self-center ml-2 hidden sm:block hover:text-white cursor-pointer transition-colors active:text-yellow-500"
+            className="size-60 text-yellow-400 self-center ml-2 hidden sm:block hover:text-white cursor-pointer transition-colors active:text-yellow-400"
             onClick={onNextClicked}
           >
             <path
