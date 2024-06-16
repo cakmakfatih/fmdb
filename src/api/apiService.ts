@@ -44,14 +44,59 @@ export interface IApiShowResponse {
   results: IApiShowResponseItem[];
 }
 
+export interface IApiCastItem {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
+}
+
+export interface IApiCastResponse {
+  id: number;
+  cast: IApiCastItem[];
+}
+
 interface ApiService {
   getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null>;
   getMovieGenres(): Promise<IApiGenreResponse | null>;
   getTvShowGenres(): Promise<IApiGenreResponse | null>;
+  getMovieCast(movieId: number): Promise<IApiCastResponse | null>;
+  getTvShowCast(tvShowId: number): Promise<IApiCastResponse | null>;
+}
+
+async function getCast(
+  mediaType: MediaType,
+  id: number
+): Promise<IApiCastResponse | null> {
+  const response = await httpClient<IApiCastResponse>(
+    `/${mediaType === MediaType.Movie ? "movie" : "tv"}/${id}/credits`
+  );
+
+  if (response.status !== axios.HttpStatusCode.Ok) {
+    return null;
+  }
+
+  return response.data;
 }
 
 const apiService: ApiService = {
-  async getTrendingAllWeek(page?: number) {
+  async getMovieCast(movieId: number): Promise<IApiCastResponse | null> {
+    return await getCast(MediaType.Movie, movieId);
+  },
+
+  async getTvShowCast(tvShowId: number): Promise<IApiCastResponse | null> {
+    return await getCast(MediaType.Tv, tvShowId);
+  },
+
+  async getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null> {
     if (typeof page === "undefined") {
       page = 1;
     }
