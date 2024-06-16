@@ -88,14 +88,6 @@ async function getCast(
 }
 
 const apiService: ApiService = {
-  async getMovieCast(movieId: number): Promise<IApiCastResponse | null> {
-    return await getCast(MediaType.Movie, movieId);
-  },
-
-  async getTvShowCast(tvShowId: number): Promise<IApiCastResponse | null> {
-    return await getCast(MediaType.Tv, tvShowId);
-  },
-
   async getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null> {
     if (typeof page === "undefined") {
       page = 1;
@@ -135,6 +127,14 @@ const apiService: ApiService = {
     }
 
     return response.data;
+  },
+
+  async getMovieCast(movieId: number): Promise<IApiCastResponse | null> {
+    return await getCast(MediaType.Movie, movieId);
+  },
+
+  async getTvShowCast(tvShowId: number): Promise<IApiCastResponse | null> {
+    return await getCast(MediaType.Tv, tvShowId);
   },
 };
 

@@ -4,26 +4,48 @@ import { motion } from "framer-motion";
 import { MainState } from "../../store/MainStore/mainSlice";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
-import { genresIdsToString } from "../../core/helpers";
+import { findCastFromStore, genresIdsToString } from "../../core/helpers";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../store/hooks";
+import { getCast } from "../../store/MainStore/mainAsyncThunks";
 
 function mapStateToProps(state: RootState): MainState {
   return state.main;
 }
 
-function MainContentItem({
-  show,
-  animDelay,
-  genres,
-}: {
+function MainContentItem(props: {
   show: IShow;
   animDelay: number;
   genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
+  cast: {
+    movie: {
+      [id: number]: string[];
+    };
+    tvShow: {
+      [id: number]: string[];
+    };
+  };
 }) {
+  const dispatch = useAppDispatch();
+  const { show, animDelay, genres, cast } = props;
+
   const genresStr = genresIdsToString({
     mediaType: show.mediaType,
     genreIds: show.genreIds,
     genres: genres,
   });
+
+  let actors: string[] = findCastFromStore({ show, cast });
+
+  if (actors.length > 5) {
+    actors = [...actors.slice(0, 5)];
+  }
+
+  useEffect(() => {
+    if (actors.length === 0) {
+      dispatch(getCast({ mediaType: show.mediaType, id: show.id }));
+    }
+  }, []);
 
   return (
     <>
@@ -64,6 +86,16 @@ function MainContentItem({
                   className="p-2 px-4 border border-white/[0.24] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-transparent mr-2"
                 >
                   {genre}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4 flex">
+              {actors.map((actor, idx) => (
+                <span
+                  key={idx}
+                  className="p-2 px-4 border border-white/[0.24] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-transparent mr-2"
+                >
+                  {actor}
                 </span>
               ))}
             </div>

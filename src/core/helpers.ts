@@ -1,5 +1,5 @@
+import { IApiShowResponseItem } from "../api/apiService";
 import { TMDB_BACKDROP_PREFIX, TMDB_POSTER_PREFIX } from "./globals";
-import { IApiShowResponseItem } from "./interfaces/IApiShowResponse";
 import IShow, { MediaType } from "./interfaces/IShow";
 
 export function apiResponseToShow(media: IApiShowResponseItem): IShow {
@@ -47,4 +47,27 @@ export function genresIdsToString({
   }
 
   return genresStr;
+}
+
+export function findCastFromStore({
+  show,
+  cast,
+}: {
+  show: IShow;
+  cast: {
+    movie: {
+      [key: number]: string[];
+    };
+    tvShow: {
+      [key: number]: string[];
+    };
+  };
+}) {
+  if (show.mediaType === MediaType.Movie) {
+    return show.id in cast.movie ? [...cast.movie[show.id]] : [];
+  } else if (show.mediaType === MediaType.Tv) {
+    return show.id in cast.tvShow ? [...cast.tvShow[show.id]] : [];
+  }
+
+  return [];
 }
