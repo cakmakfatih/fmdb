@@ -10,20 +10,12 @@ export interface MainState {
   isHeaderSticky: boolean;
   bookmarkedItems: BookmarkedItem[];
   genres: {
-    movie: {
-      [key: number]: string;
-    };
-    tvShow: {
-      [key: number]: string;
-    };
+    movie: Record<number, string>;
+    tvShow: Record<number, string>;
   };
   cast: {
-    movie: {
-      [key: number]: string[];
-    };
-    tvShow: {
-      [key: number]: string[];
-    };
+    movie: Record<number, string[]>;
+    tvShow: Record<number, string[]>;
   };
 }
 
@@ -56,7 +48,7 @@ const mainSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getMovieGenres.fulfilled,
-      (state, action: PayloadAction<{ [id: number]: string } | null>) => {
+      (state, action: PayloadAction<Record<string, string> | null>) => {
         if (action.payload === null) return;
 
         state.genres.movie = action.payload;
@@ -64,7 +56,7 @@ const mainSlice = createSlice({
     );
     builder.addCase(
       getTvShowGenres.fulfilled,
-      (state, action: PayloadAction<{ [id: number]: string } | null>) => {
+      (state, action: PayloadAction<Record<string, string> | null>) => {
         if (action.payload === null) return;
 
         state.genres.tvShow = action.payload;

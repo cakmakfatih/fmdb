@@ -33,7 +33,7 @@ function ShowCardGenres({
   genres,
 }: {
   show: IShow;
-  genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
+  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
 }) {
   const genresStr = genresIdsToString({
     mediaType: show.mediaType,
@@ -70,7 +70,7 @@ function ShowCard({
   genres,
 }: {
   show: IShow;
-  genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
+  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
 }) {
   return (
     <article

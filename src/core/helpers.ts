@@ -32,7 +32,7 @@ export function genresIdsToString({
 }: {
   mediaType: MediaType;
   genreIds: number[];
-  genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
+  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
 }): string[] {
   const genresStr: string[] = [];
 

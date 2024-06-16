@@ -16,14 +16,10 @@ function mapStateToProps(state: RootState): MainState {
 function MainContentItem(props: {
   show: IShow;
   animDelay: number;
-  genres: { movie: { [id: number]: string }; tvShow: { [id: number]: string } };
+  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
   cast: {
-    movie: {
-      [id: number]: string[];
-    };
-    tvShow: {
-      [id: number]: string[];
-    };
+    movie: Record<string, string[]>;
+    tvShow: Record<string, string[]>;
   };
 }) {
   const dispatch = useAppDispatch();
@@ -83,13 +79,13 @@ function MainContentItem(props: {
               {genresStr.map((genre, idx) => (
                 <span
                   key={idx}
-                  className="p-2 px-4 border border-white/[0.24] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-transparent mr-2"
+                  className="p-2 px-4 border border-white/[0.64] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-yellow-500 mr-2 uppercase font-bold text-sm"
                 >
                   {genre}
                 </span>
               ))}
             </div>
-            <div className="mt-4 flex">
+            <div className="mt-3 flex">
               {actors.map((actor, idx) => (
                 <span
                   key={idx}

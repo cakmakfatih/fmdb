@@ -14,13 +14,7 @@ function HomePage(props: HomeState) {
   return (
     <>
       <MainContentSection shows={[...trendingShows.items.slice(0, 5)]} />
-      <ListSection title="Bookmarked" shows={trendingShows.items} />
       <ListSection title="Trending" shows={trendingShows.items} />
-      <ListSection title="Popular" shows={trendingShows.items} />
-      <ListSection title="Top Rated" shows={trendingShows.items} />
-      <ListSection title="Trending" shows={trendingShows.items} />
-      <ListSection title="Popular" shows={trendingShows.items} />
-      <ListSection title="Top Rated" shows={trendingShows.items} />
     </>
   );
 }
