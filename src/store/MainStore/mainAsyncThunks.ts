@@ -4,17 +4,26 @@ import { MediaType } from "../../core/interfaces/IShow";
 
 export const getMovieGenres = createAsyncThunk(
   "main/getMovieGenres",
-  async (): Promise<Record<string, string> | null> => {
+  async (): Promise<
+    | {
+        id: number;
+        value: string;
+      }[]
+    | null
+  > => {
     const data = await apiService.getMovieGenres();
 
     if (data === null) {
       return null;
     }
 
-    const result: Record<string, string> = {};
+    const result: { id: number; value: string }[] = [];
 
     for (let genre of data.genres) {
-      result[genre.id] = genre.name;
+      result.push({
+        id: genre.id,
+        value: genre.name,
+      });
     }
 
     return result;
@@ -23,17 +32,26 @@ export const getMovieGenres = createAsyncThunk(
 
 export const getTvShowGenres = createAsyncThunk(
   "main/getTvShowGenres",
-  async (): Promise<Record<string, string> | null> => {
+  async (): Promise<
+    | {
+        id: number;
+        value: string;
+      }[]
+    | null
+  > => {
     const data = await apiService.getTvShowGenres();
 
     if (data === null) {
       return null;
     }
 
-    const result: Record<string, string> = {};
+    const result: { id: number; value: string }[] = [];
 
     for (let genre of data.genres) {
-      result[genre.id] = genre.name;
+      result.push({
+        id: genre.id,
+        value: genre.name,
+      });
     }
 
     return result;
