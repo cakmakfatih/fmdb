@@ -22,5 +22,4 @@ export default interface IShow {
   posterPath: string;
   voteAverage: number;
   voteCount: number;
-  actors?: string[];
 }

@@ -4,19 +4,35 @@ import { MediaType } from "../../core/interfaces/IShow";
 
 const BOOKMARKED_ITEMS_KEY = "BOOKMARKED_ITEMS";
 
+export interface Cast {
+  movie: {
+    id: number;
+    value: string[];
+  }[];
+  tvShow: {
+    id: number;
+    value: string[];
+  }[];
+}
+
+export interface Genres {
+  movie: {
+    id: number;
+    value: string;
+  }[];
+  tvShow: {
+    id: number;
+    value: string;
+  }[];
+}
+
 export interface BookmarkedItem {}
 
 export interface MainState {
   isHeaderSticky: boolean;
   bookmarkedItems: BookmarkedItem[];
-  genres: {
-    movie: Record<number, string>;
-    tvShow: Record<number, string>;
-  };
-  cast: {
-    movie: Record<number, string[]>;
-    tvShow: Record<number, string[]>;
-  };
+  genres: Genres;
+  cast: Cast;
 }
 
 const initialState: MainState = {
@@ -25,8 +41,8 @@ const initialState: MainState = {
     localStorage.getItem(BOOKMARKED_ITEMS_KEY) || JSON.stringify([])
   ),
   genres: {
-    movie: {},
-    tvShow: {},
+    movie: [],
+    tvShow: [],
   },
   cast: {
     movie: [],
@@ -48,18 +64,36 @@ const mainSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getMovieGenres.fulfilled,
-      (state, action: PayloadAction<Record<string, string> | null>) => {
+      (
+        state,
+        action: PayloadAction<
+          | {
+              id: number;
+              value: string;
+            }[]
+          | null
+        >
+      ) => {
         if (action.payload === null) return;
 
-        state.genres.movie = action.payload;
+        state.genres.movie = [...action.payload, ...state.genres.tvShow];
       }
     );
     builder.addCase(
       getTvShowGenres.fulfilled,
-      (state, action: PayloadAction<Record<string, string> | null>) => {
+      (
+        state,
+        action: PayloadAction<
+          | {
+              id: number;
+              value: string;
+            }[]
+          | null
+        >
+      ) => {
         if (action.payload === null) return;
 
-        state.genres.tvShow = action.payload;
+        state.genres.tvShow = [...action.payload, ...state.genres.tvShow];
       }
     );
     builder.addCase(
@@ -75,9 +109,15 @@ const mainSlice = createSlice({
         if (action.payload === null) return;
 
         if (action.payload.mediaType === MediaType.Movie) {
-          state.cast.movie[action.payload.id] = action.payload.data;
+          state.cast.movie = [
+            { id: action.payload.id, value: action.payload.data },
+            ...state.cast.movie,
+          ];
         } else {
-          state.cast.tvShow[action.payload.id] = action.payload.data;
+          state.cast.tvShow = [
+            { id: action.payload.id, value: action.payload.data },
+            ...state.cast.tvShow,
+          ];
         }
       }
     );

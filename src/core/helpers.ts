@@ -1,4 +1,5 @@
 import { IApiShowResponseItem } from "../api/apiService";
+import { Cast, Genres } from "../store/MainStore/mainSlice";
 import { TMDB_BACKDROP_PREFIX, TMDB_POSTER_PREFIX } from "./globals";
 import IShow, { MediaType } from "./interfaces/IShow";
 
@@ -32,17 +33,21 @@ export function genresIdsToString({
 }: {
   mediaType: MediaType;
   genreIds: number[];
-  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
+  genres: Genres;
 }): string[] {
   const genresStr: string[] = [];
 
   if (mediaType === MediaType.Movie) {
     for (let genreId of genreIds) {
-      if (genreId in genres.movie) genresStr.push(genres.movie[genreId]);
+      const idx = genres.movie.findIndex((i) => i.id === genreId);
+
+      if (idx !== -1) genresStr.push(genres.movie[idx].value);
     }
   } else if (mediaType === MediaType.Tv) {
     for (let genreId of genreIds) {
-      if (genreId in genres.tvShow) genresStr.push(genres.tvShow[genreId]);
+      const idx = genres.tvShow.findIndex((i) => i.id === genreId);
+
+      if (idx !== -1) genresStr.push(genres.tvShow[idx].value);
     }
   }
 
@@ -54,20 +59,19 @@ export function findCastFromStore({
   cast,
 }: {
   show: IShow;
-  cast: {
-    movie: {
-      [key: number]: string[];
-    };
-    tvShow: {
-      [key: number]: string[];
-    };
-  };
-}) {
+  cast: Cast;
+}): string[] {
+  const castFiltered: string[] = [];
+
   if (show.mediaType === MediaType.Movie) {
-    return show.id in cast.movie ? [...cast.movie[show.id]] : [];
+    const idx = cast.movie.findIndex((i) => i.id === show.id);
+
+    if (idx !== -1) castFiltered.push(...cast.movie[idx].value);
   } else if (show.mediaType === MediaType.Tv) {
-    return show.id in cast.tvShow ? [...cast.tvShow[show.id]] : [];
+    const idx = cast.tvShow.findIndex((i) => i.id === show.id);
+
+    if (idx !== -1) castFiltered.push(...cast.tvShow[idx].value);
   }
 
-  return [];
+  return castFiltered;
 }
