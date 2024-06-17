@@ -14,6 +14,7 @@ import {
   getMovieGenres,
   getTvShowGenres,
 } from "./store/MainStore/mainAsyncThunks.ts";
+import ShowDetailModal from "./components/ShowDetailModal/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <MainLayout>
         <RouterProvider router={router}></RouterProvider>
+        <ShowDetailModal />
       </MainLayout>
     </Provider>
   </React.StrictMode>

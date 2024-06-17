@@ -66,15 +66,11 @@ export function findCastFromStore({
   if (show.mediaType === MediaType.Movie) {
     const idx = cast.movie.findIndex((i) => i.id === show.id);
 
-    if (idx !== -1) {
-      castFiltered.push(...cast.movie[idx].value);
-    }
+    if (idx !== -1) castFiltered.push(...cast.movie[idx].value);
   } else if (show.mediaType === MediaType.Tv) {
     const idx = cast.tvShow.findIndex((i) => i.id === show.id);
 
-    if (idx !== -1) {
-      castFiltered.push(...cast.tvShow[idx].value);
-    }
+    if (idx !== -1) castFiltered.push(...cast.tvShow[idx].value);
   }
 
   return castFiltered;

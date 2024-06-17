@@ -1,7 +1,7 @@
 import { MaxWidthLayout } from "../../layout/MainLayout";
 import IShow from "../../core/interfaces/IShow";
 import { motion } from "framer-motion";
-import { MainState } from "../../store/MainStore/mainSlice";
+import { Cast, Genres, MainState } from "../../store/MainStore/mainSlice";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
 import { findCastFromStore, genresIdsToString } from "../../core/helpers";
@@ -16,11 +16,8 @@ function mapStateToProps(state: RootState): MainState {
 function MainContentItem(props: {
   show: IShow;
   animDelay: number;
-  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
-  cast: {
-    movie: Record<string, string[]>;
-    tvShow: Record<string, string[]>;
-  };
+  genres: Genres;
+  cast: Cast;
 }) {
   const dispatch = useAppDispatch();
   const { show, animDelay, genres, cast } = props;
