@@ -15,6 +15,16 @@ export interface Cast {
   }[];
 }
 
+export interface YoutubeVideo {
+  name: string;
+  url: string;
+}
+
+export interface Videos {
+  id: number;
+  youtubeVideos: YoutubeVideo[];
+}
+
 export interface Genres {
   movie: {
     id: number;
@@ -26,6 +36,11 @@ export interface Genres {
   }[];
 }
 
+export interface ShowVideos {
+  movie: Videos[];
+  tvShow: Videos[];
+}
+
 export interface BookmarkedItem {}
 
 export interface MainState {
@@ -33,6 +48,7 @@ export interface MainState {
   bookmarkedItems: BookmarkedItem[];
   genres: Genres;
   cast: Cast;
+  videos: ShowVideos;
 }
 
 const initialState: MainState = {
@@ -45,6 +61,10 @@ const initialState: MainState = {
     tvShow: [],
   },
   cast: {
+    movie: [],
+    tvShow: [],
+  },
+  videos: {
     movie: [],
     tvShow: [],
   },
