@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { MaxWidthLayout } from "../../layout/MainLayout";
 import { RootState } from "../../store";
-import { MainState } from "../../store/MainStore/MainSlice";
+import { MainState } from "../../store/MainStore/MainState";
 
 function mapStateToProps(state: RootState): MainState {
   return state.main;

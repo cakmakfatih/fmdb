@@ -1,5 +1,5 @@
-import { IApiShowResponseItem } from "../api/ApiService";
-import { Cast, Genres } from "../store/MainStore/MainSlice";
+import { IApiShowResponseItem } from "../api/IApiTypes";
+import { Cast, Genres } from "../store/MainStore/MainState";
 import { TMDB_BACKDROP_PREFIX, TMDB_POSTER_PREFIX } from "./globals";
 import IShow, { MediaType } from "./interfaces/IShow";
 

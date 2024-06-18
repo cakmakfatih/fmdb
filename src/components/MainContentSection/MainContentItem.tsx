@@ -1,13 +1,13 @@
 ﻿import { MaxWidthLayout } from "../../layout/MainLayout";
 import IShow from "../../core/interfaces/IShow";
 import { motion } from "framer-motion";
-import { Cast, Genres, MainState } from "../../store/MainStore/MainSlice";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
 import { findCastFromStore, genresIdsToString } from "../../core/helpers";
 import { useEffect, useMemo } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { getCast } from "../../store/MainStore/MainAction";
+import { Cast, Genres, MainState } from "../../store/MainStore/MainState";
 
 const mapStateToProps = (state: RootState): MainState => {
   return state.main;
