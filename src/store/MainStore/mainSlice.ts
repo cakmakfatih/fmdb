@@ -1,84 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getMovieGenres, getTvShowGenres, getCast } from "./mainAsyncThunks";
+import { getMovieGenres, getTvShowGenres, getCast } from "./MainAction";
 import { MediaType } from "../../core/interfaces/IShow";
+import { mainInitialState, MainState } from "./MainState";
 
-const BOOKMARKED_ITEMS_KEY = "BOOKMARKED_ITEMS";
-
-export interface Cast {
-  movie: {
-    id: number;
-    value: string[];
-  }[];
-  tvShow: {
-    id: number;
-    value: string[];
-  }[];
-}
-
-export interface YoutubeVideo {
-  name: string;
-  url: string;
-}
-
-export interface Videos {
-  id: number;
-  youtubeVideos: YoutubeVideo[];
-}
-
-export interface Genres {
-  movie: {
-    id: number;
-    value: string;
-  }[];
-  tvShow: {
-    id: number;
-    value: string;
-  }[];
-}
-
-export interface ShowVideos {
-  movie: Videos[];
-  tvShow: Videos[];
-}
-
-export interface BookmarkedItem {}
-
-export interface MainState {
-  isHeaderSticky: boolean;
-  bookmarkedItems: BookmarkedItem[];
-  genres: Genres;
-  cast: Cast;
-  videos: ShowVideos;
-}
-
-const initialState: MainState = {
-  isHeaderSticky: false,
-  bookmarkedItems: JSON.parse(
-    localStorage.getItem(BOOKMARKED_ITEMS_KEY) || JSON.stringify([])
-  ),
-  genres: {
-    movie: [],
-    tvShow: [],
-  },
-  cast: {
-    movie: [],
-    tvShow: [],
-  },
-  videos: {
-    movie: [],
-    tvShow: [],
-  },
-};
-
-const mainSlice = createSlice({
+export const mainSlice = createSlice({
   name: "main",
-  initialState: initialState,
+  initialState: mainInitialState,
   reducers: {
     toggleStickyHeader: (state: MainState, action: PayloadAction<boolean>) => {
       state.isHeaderSticky = action.payload;
-    },
-    bookmarkItem: (state: MainState, action: PayloadAction<BookmarkedItem>) => {
-      state.bookmarkedItems = [action.payload, ...state.bookmarkedItems];
     },
   },
   extraReducers: (builder) => {
@@ -144,6 +74,4 @@ const mainSlice = createSlice({
   },
 });
 
-export const { toggleStickyHeader, bookmarkItem } = mainSlice.actions;
-
-export default mainSlice.reducer;
+export const { toggleStickyHeader } = mainSlice.actions;

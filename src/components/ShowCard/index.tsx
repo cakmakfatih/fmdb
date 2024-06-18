@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import IShow, { MediaType } from "../../core/interfaces/IShow";
 import { RootState } from "../../store";
-import { Genres, MainState } from "../../store/MainStore/mainSlice";
+import { Genres, MainState } from "../../store/MainStore/MainSlice";
 import { genresIdsToString } from "../../core/helpers";
 import { useMemo } from "react";
 

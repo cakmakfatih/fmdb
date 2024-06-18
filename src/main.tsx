@@ -6,19 +6,17 @@ import HomePage from "./pages/Home/index.ts";
 import MainLayout from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
-import {
-  homeLoadPopularMovies,
-  homeLoadPopularTvShows,
-  homeLoadTrending,
-} from "./store/HomeStore/homeAsyncThunks.ts";
+import { homeLoadTrending } from "./store/HomeStore/HomeAction.ts";
 import "swiper/css";
-import { toggleStickyHeader } from "./store/MainStore/mainSlice.ts";
+import { toggleStickyHeader } from "./store/MainStore/MainSlice.ts";
 import { HEADER_HEIGHT } from "./core/globals.ts";
 import {
   getMovieGenres,
   getTvShowGenres,
-} from "./store/MainStore/mainAsyncThunks.ts";
+} from "./store/MainStore/MainAction.ts";
 import ShowDetailModal from "./components/ShowDetailModal/index.tsx";
+import { movieLoadPopular } from "./store/MovieStore/MovieAction.ts";
+import { tvShowLoadPopular } from "./store/TvShowStore/TvShowAction.ts";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +28,8 @@ const router = createBrowserRouter([
 store.dispatch(getMovieGenres());
 store.dispatch(getTvShowGenres());
 store.dispatch(homeLoadTrending());
-store.dispatch(homeLoadPopularMovies());
-store.dispatch(homeLoadPopularTvShows());
+store.dispatch(movieLoadPopular());
+store.dispatch(tvShowLoadPopular());
 
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {

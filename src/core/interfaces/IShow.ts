@@ -23,3 +23,10 @@ export default interface IShow {
   voteAverage: number;
   voteCount: number;
 }
+
+export interface Shows {
+  currentPage: number;
+  nextPage: number;
+  lastPage?: number;
+  items: IShow[];
+}

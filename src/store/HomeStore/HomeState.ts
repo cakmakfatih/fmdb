@@ -1,11 +1,11 @@
 import { Shows } from "../../core/interfaces/IShow";
 
-export interface IMovieState {
-  popular: Shows;
+export interface HomeState {
+  trendingShows: Shows;
 }
 
-export const movieInitialState: IMovieState = {
-  popular: {
+export const homeInitialState: HomeState = {
+  trendingShows: {
     currentPage: 0,
     nextPage: 1,
     lastPage: undefined,

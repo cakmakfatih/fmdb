@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import mainSlice from "./MainStore/mainSlice";
-import homeSlice from "./HomeStore/homeSlice";
+import mainReducer from "./MainStore";
+import homeReducer from "./HomeStore";
+import movieReducer from "./MovieStore";
+import tvShowReducer from "./TvShowStore";
 
 const store = configureStore({
   reducer: {
-    main: mainSlice,
-    home: homeSlice,
+    main: mainReducer,
+    home: homeReducer,
+    movie: movieReducer,
+    tvShow: tvShowReducer,
   },
 });
 
