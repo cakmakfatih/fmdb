@@ -31,17 +31,23 @@ function mapStateToProps(state: RootState): MainState {
 
 function ShowCardGenres({ show, genres }: { show: IShow; genres: Genres }) {
   const genresStr: string[] = useMemo(() => {
-    return genresIdsToString({
+    const genreIdsStr = genresIdsToString({
       mediaType: show.mediaType,
       genreIds: show.genreIds,
       genres: genres,
     });
+
+    if (genreIdsStr.length > 2) {
+      return genreIdsStr.slice(0, 3);
+    }
+
+    return genreIdsStr;
   }, [genres]);
 
   return (
     <div className="bg-transparent flex overflow-x-hidden items-center font-bold mt-2">
-      {(genresStr.length > 2 ? genresStr.slice(0, 3) : genresStr).map(
-        (genre, idx) => (
+      {genresStr.length > 0 ? (
+        genresStr.map((genre, idx) => (
           <span
             key={idx}
             title={genre}
@@ -56,7 +62,11 @@ function ShowCardGenres({ show, genres }: { show: IShow; genres: Genres }) {
           >
             {genre}
           </span>
-        )
+        ))
+      ) : (
+        <span className="text-xs py-2 px-2 mx-1 max-w-48 text-center border-2 border-yellow-400/[0.42] shadow-xl bg-red-500 text-white rounded-md truncate">
+          No Genre Found
+        </span>
       )}
     </div>
   );

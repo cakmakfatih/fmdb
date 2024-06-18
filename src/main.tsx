@@ -15,7 +15,10 @@ import {
   getTvShowGenres,
 } from "./store/MainStore/MainAction.ts";
 import ShowDetailModal from "./components/ShowDetailModal/index.tsx";
-import { movieLoadPopular } from "./store/MovieStore/MovieAction.ts";
+import {
+  movieLoadPopular,
+  movieLoadTopRated,
+} from "./store/MovieStore/MovieAction.ts";
 import { tvShowLoadPopular } from "./store/TvShowStore/TvShowAction.ts";
 
 const router = createBrowserRouter([
@@ -30,6 +33,7 @@ store.dispatch(getTvShowGenres());
 store.dispatch(homeLoadTrending());
 store.dispatch(movieLoadPopular());
 store.dispatch(tvShowLoadPopular());
+store.dispatch(movieLoadTopRated());
 
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {

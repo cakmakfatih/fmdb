@@ -10,7 +10,7 @@ export interface IMovieActions {
 export const tvShowLoadPopular = createAsyncThunk(
   "tvShow/loadPopular",
   async (page?: number): Promise<Shows | null> => {
-    const data = await apiService.getPopularMovies(page);
+    const data = await apiService.getPopularTvShows(page);
 
     if (data === null) {
       return null;
@@ -22,7 +22,7 @@ export const tvShowLoadPopular = createAsyncThunk(
       lastPage: data.total_pages,
       items: data.results.map<IShow>((i) => ({
         ...apiResponseToShow(i),
-        mediaType: MediaType.Movie,
+        mediaType: MediaType.Tv,
       })),
     };
   }

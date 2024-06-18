@@ -15,4 +15,5 @@ export interface IApiService {
   getTvShowCast(tvShowId: number): Promise<IApiCastResponse | null>;
   getMovieVideos(movieId: number): Promise<IApiVideosResponse | null>;
   getTvShowVideos(tvShowId: number): Promise<IApiVideosResponse | null>;
+  getTopRatedMovies(page?: number): Promise<IApiShowResponse | null>;
 }

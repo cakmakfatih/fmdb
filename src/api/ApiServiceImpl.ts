@@ -111,6 +111,10 @@ class ApiServiceImpl implements IApiService {
   async getTvShowVideos(tvShowId: number): Promise<IApiVideosResponse | null> {
     return await this.#getVideos(MediaType.Tv, tvShowId);
   }
+
+  async getTopRatedMovies(page?: number): Promise<IApiShowResponse | null> {
+    return await this.#getShows(page, "/movie/top_rated");
+  }
 }
 
 export default ApiServiceImpl;
