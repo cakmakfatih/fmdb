@@ -38,13 +38,13 @@ export function genresIdsToString({
   const genresStr: string[] = [];
 
   if (mediaType === MediaType.Movie) {
-    for (let genreId of genreIds) {
+    for (const genreId of genreIds) {
       const idx = genres.movie.findIndex((i) => i.id === genreId);
 
       if (idx !== -1) genresStr.push(genres.movie[idx].value);
     }
   } else if (mediaType === MediaType.Tv) {
-    for (let genreId of genreIds) {
+    for (const genreId of genreIds) {
       const idx = genres.tvShow.findIndex((i) => i.id === genreId);
 
       if (idx !== -1) genresStr.push(genres.tvShow[idx].value);

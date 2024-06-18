@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { homeLoadPopular, homeLoadTrending, Shows } from "./homeAsyncThunks";
+import {
+  homeLoadPopularMovies,
+  homeLoadPopularTvShows,
+  homeLoadTrending,
+  Shows,
+} from "./homeAsyncThunks";
 
 export interface HomeState {
   trendingShows: Shows;
-  popularShows: Shows;
+  popularMovies: Shows;
+  popularSeries: Shows;
 }
 
 const initialState: HomeState = {
@@ -13,7 +19,13 @@ const initialState: HomeState = {
     lastPage: undefined,
     items: [],
   },
-  popularShows: {
+  popularMovies: {
+    currentPage: 0,
+    nextPage: 1,
+    lastPage: undefined,
+    items: [],
+  },
+  popularSeries: {
     currentPage: 0,
     nextPage: 1,
     lastPage: undefined,
@@ -40,14 +52,27 @@ const homeSlice = createSlice({
       }
     );
     builder.addCase(
-      homeLoadPopular.fulfilled,
+      homeLoadPopularMovies.fulfilled,
       (state, action: PayloadAction<Shows | null>) => {
         if (action.payload === null) return;
 
-        if (state.popularShows.currentPage !== action.payload.currentPage) {
-          state.popularShows = {
+        if (state.popularMovies.currentPage !== action.payload.currentPage) {
+          state.popularMovies = {
             ...action.payload,
-            items: [...state.popularShows.items, ...action.payload.items],
+            items: [...state.popularMovies.items, ...action.payload.items],
+          };
+        }
+      }
+    );
+    builder.addCase(
+      homeLoadPopularTvShows.fulfilled,
+      (state, action: PayloadAction<Shows | null>) => {
+        if (action.payload === null) return;
+
+        if (state.popularSeries.currentPage !== action.payload.currentPage) {
+          state.popularSeries = {
+            ...action.payload,
+            items: [...state.popularSeries.items, ...action.payload.items],
           };
         }
       }

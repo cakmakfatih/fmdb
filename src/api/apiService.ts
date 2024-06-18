@@ -84,7 +84,8 @@ export interface IApiVideosResponse {
 
 interface ApiService {
   getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null>;
-  getPopularShows(page?: number): Promise<IApiShowResponse | null>;
+  getPopularMovies(page?: number): Promise<IApiShowResponse | null>;
+  getPopularTvShows(page?: number): Promise<IApiShowResponse | null>;
   getMovieGenres(): Promise<IApiGenreResponse | null>;
   getTvShowGenres(): Promise<IApiGenreResponse | null>;
   getMovieCast(movieId: number): Promise<IApiCastResponse | null>;
@@ -147,8 +148,12 @@ const apiService: ApiService = {
     return await getShows(page, Routes.getTrendingAllWeek);
   },
 
-  async getPopularShows(page?: number): Promise<IApiShowResponse | null> {
+  async getPopularMovies(page?: number): Promise<IApiShowResponse | null> {
     return await getShows(page, "/movie/popular");
+  },
+
+  async getPopularTvShows(page?: number): Promise<IApiShowResponse | null> {
+    return await getShows(page, "/tv/popular");
   },
 
   async getMovieGenres(): Promise<IApiGenreResponse | null> {

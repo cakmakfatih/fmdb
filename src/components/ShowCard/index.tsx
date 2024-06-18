@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import IShow, { MediaType } from "../../core/interfaces/IShow";
 import { RootState } from "../../store";
-import { MainState } from "../../store/MainStore/mainSlice";
+import { Genres, MainState } from "../../store/MainStore/mainSlice";
 import { genresIdsToString } from "../../core/helpers";
+import { useMemo } from "react";
 
 function Rating({ rating }: { rating: number }) {
   return (
@@ -28,18 +29,14 @@ function mapStateToProps(state: RootState): MainState {
   return state.main;
 }
 
-function ShowCardGenres({
-  show,
-  genres,
-}: {
-  show: IShow;
-  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
-}) {
-  const genresStr = genresIdsToString({
-    mediaType: show.mediaType,
-    genreIds: show.genreIds,
-    genres: genres,
-  });
+function ShowCardGenres({ show, genres }: { show: IShow; genres: Genres }) {
+  const genresStr: string[] = useMemo(() => {
+    return genresIdsToString({
+      mediaType: show.mediaType,
+      genreIds: show.genreIds,
+      genres: genres,
+    });
+  }, [genres]);
 
   return (
     <div className="bg-transparent flex overflow-x-hidden items-center font-bold mt-2">
@@ -65,13 +62,7 @@ function ShowCardGenres({
   );
 }
 
-function ShowCard({
-  show,
-  genres,
-}: {
-  show: IShow;
-  genres: { movie: Record<string, string>; tvShow: Record<string, string> };
-}) {
+function ShowCard({ show, genres }: { show: IShow; genres: Genres }) {
   return (
     <article
       className="flex self-center flex-col items-stretch max-w-[300px] min-w-[300px] h-[450px] mr-4 bg-center bg-no-repeat bg-cover"

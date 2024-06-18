@@ -96,7 +96,7 @@ const mainSlice = createSlice({
       ) => {
         if (action.payload === null) return;
 
-        state.genres.movie = [...action.payload, ...state.genres.tvShow];
+        state.genres.movie = [...action.payload, ...state.genres.movie];
       }
     );
     builder.addCase(

@@ -6,9 +6,9 @@ export const getMovieGenres = createAsyncThunk(
   "main/getMovieGenres",
   async (): Promise<
     | {
-        id: number;
-        value: string;
-      }[]
+      id: number;
+      value: string;
+    }[]
     | null
   > => {
     const data = await apiService.getMovieGenres();
@@ -19,7 +19,7 @@ export const getMovieGenres = createAsyncThunk(
 
     const result: { id: number; value: string }[] = [];
 
-    for (let genre of data.genres) {
+    for (const genre of data.genres) {
       result.push({
         id: genre.id,
         value: genre.name,
@@ -34,9 +34,9 @@ export const getTvShowGenres = createAsyncThunk(
   "main/getTvShowGenres",
   async (): Promise<
     | {
-        id: number;
-        value: string;
-      }[]
+      id: number;
+      value: string;
+    }[]
     | null
   > => {
     const data = await apiService.getTvShowGenres();
@@ -47,7 +47,7 @@ export const getTvShowGenres = createAsyncThunk(
 
     const result: { id: number; value: string }[] = [];
 
-    for (let genre of data.genres) {
+    for (const genre of data.genres) {
       result.push({
         id: genre.id,
         value: genre.name,

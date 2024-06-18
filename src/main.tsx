@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/Home/index.tsx";
+import HomePage from "./pages/Home/index.ts";
 import MainLayout from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
 import {
-  homeLoadPopular,
+  homeLoadPopularMovies,
+  homeLoadPopularTvShows,
   homeLoadTrending,
 } from "./store/HomeStore/homeAsyncThunks.ts";
 import "swiper/css";
@@ -29,7 +30,8 @@ const router = createBrowserRouter([
 store.dispatch(getMovieGenres());
 store.dispatch(getTvShowGenres());
 store.dispatch(homeLoadTrending());
-store.dispatch(homeLoadPopular());
+store.dispatch(homeLoadPopularMovies());
+store.dispatch(homeLoadPopularTvShows());
 
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {

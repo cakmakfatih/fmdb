@@ -1,4 +1,4 @@
-import { MaxWidthLayout } from "../../layout/MainLayout";
+﻿import { MaxWidthLayout } from "../../layout/MainLayout";
 import IShow from "../../core/interfaces/IShow";
 import { motion } from "framer-motion";
 import { Cast, Genres, MainState } from "../../store/MainStore/mainSlice";
@@ -67,7 +67,7 @@ function MainContentItem(props: {
           repeatType: "reverse",
         }}
       ></motion.div>
-      <div className="absolute h-[65vh] w-full flex flex-col from-black to-70% bg-gradient-to-t">
+      <div className="h-[65vh] from-black absolute flex w-full flex-col bg-gradient-to-t to-70%">
         <div className="select-none flex-1"></div>
         <div className="justify-end py-4 flex flex-col items-center px-2 from-black to-100% bg-gradient-to-t">
           <MaxWidthLayout className="flex-col items-stretch pb-4 px-4">
