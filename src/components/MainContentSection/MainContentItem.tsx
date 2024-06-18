@@ -5,13 +5,13 @@ import { Cast, Genres, MainState } from "../../store/MainStore/mainSlice";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
 import { findCastFromStore, genresIdsToString } from "../../core/helpers";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { getCast } from "../../store/MainStore/mainAsyncThunks";
 
-function mapStateToProps(state: RootState): MainState {
+const mapStateToProps = (state: RootState): MainState => {
   return state.main;
-}
+};
 
 function MainContentItem(props: {
   show: IShow;
@@ -22,22 +22,27 @@ function MainContentItem(props: {
   const dispatch = useAppDispatch();
   const { show, animDelay, genres, cast } = props;
 
-  const genresStr = genresIdsToString({
-    mediaType: show.mediaType,
-    genreIds: show.genreIds,
-    genres: genres,
-  });
+  const actors: string[] = useMemo(() => {
+    const res = findCastFromStore({ show, cast });
 
-  let actors: string[] = findCastFromStore({ show, cast });
+    if (res.length > 5) {
+      return res.slice(0, 5);
+    }
 
-  if (actors.length > 5) {
-    actors = [...actors.slice(0, 5)];
-  }
+    return res;
+  }, [cast]);
+  const genresStr = useMemo(
+    () =>
+      genresIdsToString({
+        mediaType: show.mediaType,
+        genreIds: show.genreIds,
+        genres: genres,
+      }),
+    [genres]
+  );
 
   useEffect(() => {
-    if (actors.length === 0) {
-      dispatch(getCast({ mediaType: show.mediaType, id: show.id }));
-    }
+    dispatch(getCast({ mediaType: show.mediaType, id: show.id }));
   }, []);
 
   return (

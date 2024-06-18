@@ -89,7 +89,7 @@ interface ApiService {
   getMovieCast(movieId: number): Promise<IApiCastResponse | null>;
   getTvShowCast(tvShowId: number): Promise<IApiCastResponse | null>;
   getMovieVideos(movieId: number): Promise<IApiVideosResponse | null>;
-  getTvShowVideos(movieId: number): Promise<IApiVideosResponse | null>;
+  getTvShowVideos(tvShowId: number): Promise<IApiVideosResponse | null>;
 }
 
 async function getVideos(
