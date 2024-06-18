@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import IShow, { Shows } from "../../core/interfaces/IShow";
 import { apiResponseToShow } from "../../core/helpers";
-import apiService from "../../api/apiService";
+import apiService from "../../api";
 
 export const homeLoadTrending = createAsyncThunk(
   "home/loadTrending",

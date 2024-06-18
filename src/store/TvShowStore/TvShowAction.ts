@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import apiService from "../../api/apiService";
 import IShow, { MediaType, Shows } from "../../core/interfaces/IShow";
 import { apiResponseToShow } from "../../core/helpers";
+import apiService from "../../api";
 
 export interface IMovieActions {
   getItems(): string[];

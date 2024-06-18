@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import apiService, { IApiCastResponse } from "../../api/apiService";
 import { MediaType } from "../../core/interfaces/IShow";
+import apiService from "../../api";
+import { IApiCastResponse } from "../../api/IApiTypes";
 
 export const getMovieGenres = createAsyncThunk(
   "main/getMovieGenres",
   async (): Promise<
     | {
-      id: number;
-      value: string;
-    }[]
+        id: number;
+        value: string;
+      }[]
     | null
   > => {
     const data = await apiService.getMovieGenres();
@@ -34,9 +35,9 @@ export const getTvShowGenres = createAsyncThunk(
   "main/getTvShowGenres",
   async (): Promise<
     | {
-      id: number;
-      value: string;
-    }[]
+        id: number;
+        value: string;
+      }[]
     | null
   > => {
     const data = await apiService.getTvShowGenres();
