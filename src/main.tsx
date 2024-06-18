@@ -6,7 +6,10 @@ import HomePage from "./pages/Home/index.tsx";
 import MainLayout from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
-import { homeLoadTrending } from "./store/HomeStore/homeAsyncThunks.ts";
+import {
+  homeLoadPopular,
+  homeLoadTrending,
+} from "./store/HomeStore/homeAsyncThunks.ts";
 import "swiper/css";
 import { toggleStickyHeader } from "./store/MainStore/mainSlice.ts";
 import { HEADER_HEIGHT } from "./core/globals.ts";
@@ -26,6 +29,7 @@ const router = createBrowserRouter([
 store.dispatch(getMovieGenres());
 store.dispatch(getTvShowGenres());
 store.dispatch(homeLoadTrending());
+store.dispatch(homeLoadPopular());
 
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {

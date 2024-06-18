@@ -9,12 +9,13 @@ function mapStateToProps(state: RootState): HomeState {
 }
 
 function HomePage(props: HomeState) {
-  const { trendingShows } = props;
+  const { trendingShows, popularShows } = props;
 
   return (
     <>
       <MainContentSection shows={[...trendingShows.items.slice(0, 5)]} />
       <ListSection title="Trending" shows={trendingShows.items} />
+      <ListSection title="Popular" shows={popularShows.items} />
     </>
   );
 }

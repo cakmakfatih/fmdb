@@ -84,6 +84,7 @@ export interface IApiVideosResponse {
 
 interface ApiService {
   getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null>;
+  getPopularShows(page?: number): Promise<IApiShowResponse | null>;
   getMovieGenres(): Promise<IApiGenreResponse | null>;
   getTvShowGenres(): Promise<IApiGenreResponse | null>;
   getMovieCast(movieId: number): Promise<IApiCastResponse | null>;
@@ -122,24 +123,32 @@ async function getCast(
   return response.data;
 }
 
+async function getShows(
+  page: number = 1,
+  url: string
+): Promise<IApiShowResponse | null> {
+  if (typeof page === "undefined") {
+    page = 1;
+  }
+
+  const response = await httpClient<IApiShowResponse>(url, {
+    params: { page: page },
+  });
+
+  if (response.status !== axios.HttpStatusCode.Ok) {
+    return null;
+  }
+
+  return response.data;
+}
+
 const apiService: ApiService = {
   async getTrendingAllWeek(page?: number): Promise<IApiShowResponse | null> {
-    if (typeof page === "undefined") {
-      page = 1;
-    }
+    return await getShows(page, Routes.getTrendingAllWeek);
+  },
 
-    const response = await httpClient<IApiShowResponse>(
-      Routes.getTrendingAllWeek,
-      {
-        params: { page: page },
-      }
-    );
-
-    if (response.status !== axios.HttpStatusCode.Ok) {
-      return null;
-    }
-
-    return response.data;
+  async getPopularShows(page?: number): Promise<IApiShowResponse | null> {
+    return await getShows(page, "/movie/popular");
   },
 
   async getMovieGenres(): Promise<IApiGenreResponse | null> {
