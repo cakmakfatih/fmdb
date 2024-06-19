@@ -14,7 +14,6 @@ export function FooterComponent() {
         </a>
       </span>
       <div className="h-8"></div>
-      <div className="h-8"></div>
       <p className="text-sm text-white/[0.64]">
         Data used in the project is coming from the TMDB API, special thanks to
         the all TMDB team. You can check out{" "}
