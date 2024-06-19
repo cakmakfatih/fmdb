@@ -115,6 +115,10 @@ class ApiServiceImpl implements IApiService {
   async getTopRatedMovies(page?: number): Promise<IApiShowResponse | null> {
     return await this.#getShows(page, "/movie/top_rated");
   }
+
+  async getTopRatedTvShows(page?: number | undefined): Promise<IApiShowResponse | null> {
+    return await this.#getShows(page, "/tv/top_rated");
+  }
 }
 
 export default ApiServiceImpl;

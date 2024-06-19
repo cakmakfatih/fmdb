@@ -19,7 +19,10 @@ import {
   movieLoadPopular,
   movieLoadTopRated,
 } from "./store/MovieStore/MovieAction.ts";
-import { tvShowLoadPopular } from "./store/TvShowStore/TvShowAction.ts";
+import {
+  tvShowLoadPopular,
+  tvShowLoadTopRated,
+} from "./store/TvShowStore/TvShowAction.ts";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +31,19 @@ const router = createBrowserRouter([
   },
 ]);
 
-store.dispatch(getMovieGenres());
-store.dispatch(getTvShowGenres());
-store.dispatch(homeLoadTrending());
-store.dispatch(movieLoadPopular());
-store.dispatch(tvShowLoadPopular());
-store.dispatch(movieLoadTopRated());
+function init() {
+  Promise.all([
+    store.dispatch(getMovieGenres()),
+    store.dispatch(getTvShowGenres()),
+    store.dispatch(homeLoadTrending()),
+    store.dispatch(movieLoadPopular()),
+    store.dispatch(tvShowLoadPopular()),
+    store.dispatch(movieLoadTopRated()),
+    store.dispatch(tvShowLoadTopRated()),
+  ]);
+}
+
+init();
 
 window.onscroll = (_) => {
   if (window.scrollY > HEADER_HEIGHT && !store.getState().main.isHeaderSticky) {

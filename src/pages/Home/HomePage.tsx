@@ -12,7 +12,7 @@ export function HomePage({ home, movie, tvShow }: RootState) {
   }, [home.trendingShows]);
 
   const { popular: popularMovies, topRated: topRatedMovies } = movie;
-  const { popular: popularTvShows } = tvShow;
+  const { popular: popularTvShows, topRated: topRatedTvShows } = tvShow;
 
   return (
     <>
@@ -21,6 +21,7 @@ export function HomePage({ home, movie, tvShow }: RootState) {
       <ListSection title="Popular Movies" shows={popularMovies.items} />
       <ListSection title="Top Rated Movies" shows={topRatedMovies.items} />
       <ListSection title="Popular Tv Series" shows={popularTvShows.items} />
+      <ListSection title="Top Rated Tv Series" shows={topRatedTvShows.items} />
     </>
   );
 }
