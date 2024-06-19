@@ -25,21 +25,25 @@ function MainContentItem(props: {
   const actors: string[] = useMemo(() => {
     const res = findCastFromStore({ show, cast });
 
-    if (res.length > 5) {
-      return res.slice(0, 5);
+    if (res.length > 3) {
+      return res.slice(0, 3);
     }
 
     return res;
   }, [cast]);
-  const genresStr = useMemo(
-    () =>
-      genresIdsToString({
-        mediaType: show.mediaType,
-        genreIds: show.genreIds,
-        genres: genres,
-      }),
-    [genres]
-  );
+  const genresStr = useMemo(() => {
+    const res = genresIdsToString({
+      mediaType: show.mediaType,
+      genreIds: show.genreIds,
+      genres: genres,
+    });
+
+    if (res.length > 3) {
+      return res.slice(0, 3);
+    }
+
+    return res;
+  }, [genres]);
 
   useEffect(() => {
     dispatch(getCast({ mediaType: show.mediaType, id: show.id }));
@@ -72,21 +76,21 @@ function MainContentItem(props: {
         <div className="justify-end py-4 flex flex-col items-center px-2 from-black to-100% bg-gradient-to-t">
           <MaxWidthLayout className="flex-col items-stretch pb-4 px-4">
             <div className="flex items-center">
-              <h1 className="mr-2 text-4xl drop-shadow-2xl font-bold px-2 max-w-[700px]">
+              <h1 className="mr-1 text-4xl drop-shadow-2xl font-bold px-2 max-w-[700px]">
                 {show.title ?? show.name}
               </h1>
               <div className="rounded-full bg-purple-500 flex items-center justify-center text-xl mb-6 px-4 py-1 font-bold ring-2 ring-gray-800">
                 <span>{show.voteAverage.toFixed(2)}</span>
               </div>
             </div>
-            <div className="max-w-[700px] w-[100%] mt-1 opacity-60 px-2">
+            <div className="max-w-[700px] w-[100%] mt-1 opacity-60 px-2 lg:max-h-[500px] max-h-[110px] overflow-y-scroll lg:overflow-y-visible max-h-auto">
               <p className="text-base overflow-hidden">{show.overview}</p>
             </div>
             <div className="mt-4 flex">
               {genresStr.map((genre, idx) => (
                 <span
                   key={idx}
-                  className="p-2 px-4 border border-white/[0.64] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-cyan-500 text-xl mr-2 uppercase font-bold"
+                  className="p-2 px-4 border border-white/[0.64] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-cyan-500 text-sm mr-2 truncate uppercase font-bold"
                 >
                   {genre}
                 </span>

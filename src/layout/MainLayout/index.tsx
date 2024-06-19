@@ -21,7 +21,7 @@ export default function MainLayout({
   children?: JSX.Element | JSX.Element[];
 }): JSX.Element {
   return (
-    <div className="items-stretch bg-black flex flex-1 flex-col absolute left-0 top-0 w-full min-h-0 min-w-0 subpixel-antialiased">
+    <div className="items-stretch bg-black flex flex-1 flex-col absolute left-0 top-0 w-screen min-h-0 min-w-screen overflow-x-hidden subpixel-antialiased">
       <HeaderContainer />
       {children}
       <FooterComponent />
