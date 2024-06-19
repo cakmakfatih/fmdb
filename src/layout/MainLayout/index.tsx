@@ -1,5 +1,5 @@
 import FooterComponent from "../../components/Footer";
-import HeaderComponent from "../../components/Header";
+import HeaderContainer from "../../components/Header";
 
 export function MaxWidthLayout({
   children,
@@ -22,7 +22,7 @@ export default function MainLayout({
 }): JSX.Element {
   return (
     <div className="items-stretch bg-black flex flex-1 flex-col absolute left-0 top-0 w-full min-h-0 min-w-0 subpixel-antialiased">
-      <HeaderComponent />
+      <HeaderContainer />
       {children}
       <FooterComponent />
     </div>
