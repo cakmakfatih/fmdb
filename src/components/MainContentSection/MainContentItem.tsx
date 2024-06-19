@@ -86,7 +86,7 @@ function MainContentItem(props: {
               {genresStr.map((genre, idx) => (
                 <span
                   key={idx}
-                  className="p-2 px-4 border border-white/[0.64] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-yellow-500 mr-2 uppercase font-bold text-sm"
+                  className="p-2 px-4 border border-white/[0.64] hover:-translate-y-2 hover:drop-shadow-2xl hover:bg-slate-800 select-none transition-all duration-200 cursor-pointer rounded-md drop-shadow-xl bg-cyan-500 text-xl mr-2 uppercase font-bold"
                 >
                   {genre}
                 </span>
