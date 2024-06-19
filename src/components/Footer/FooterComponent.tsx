@@ -16,14 +16,14 @@ export function FooterComponent() {
       <div className="h-8"></div>
       <p className="text-sm text-white/[0.64]">
         Data used in the project is coming from the TMDB API, special thanks to
-        the all TMDB team. You can check out{" "}
+        the all TMDB team. You can check out
         <a
           className="underline opacity-75 hover:opacity-100 hover:text-white"
           target="_blank"
           href="https://www.themoviedb.org/"
         >
           TMDB API
-        </a>{" "}
+        </a>
         from here.
       </p>
     </footer>
