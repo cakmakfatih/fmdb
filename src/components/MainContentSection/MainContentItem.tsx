@@ -71,9 +71,14 @@ function MainContentItem(props: {
         <div className="select-none flex-1"></div>
         <div className="justify-end py-4 flex flex-col items-center px-2 from-black to-100% bg-gradient-to-t">
           <MaxWidthLayout className="flex-col items-stretch pb-4 px-4">
-            <h1 className="text-4xl drop-shadow-2xl font-bold px-2 max-w-[700px]">
-              {show.title ?? show.name}
-            </h1>
+            <div className="flex items-center">
+              <h1 className="mr-2 text-4xl drop-shadow-2xl font-bold px-2 max-w-[700px]">
+                {show.title ?? show.name}
+              </h1>
+              <div className="rounded-full bg-purple-500 flex items-center justify-center text-xl mb-6 px-4 py-1 font-bold ring-2 ring-gray-800">
+                <span>{show.voteAverage.toFixed(2)}</span>
+              </div>
+            </div>
             <div className="max-w-[700px] w-[100%] mt-1 opacity-60 px-2">
               <p className="text-base overflow-hidden">{show.overview}</p>
             </div>
