@@ -12,6 +12,7 @@ export function FooterComponent() {
         >
           GitHub URL
         </a>
+        .
       </span>
       <div className="h-8"></div>
       <p className="text-sm text-white/[0.64]">
