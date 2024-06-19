@@ -19,8 +19,8 @@ export function HomePage({ home, movie, tvShow }: RootState) {
       <MainContentSection shows={trendingShowsSliced} />
       <ListSection title="Trending Shows" shows={trendingShows.items} />
       <ListSection title="Popular Movies" shows={popularMovies.items} />
-      <ListSection title="Top Rated Movies" shows={topRatedMovies.items} />
       <ListSection title="Popular Tv Series" shows={popularTvShows.items} />
+      <ListSection title="Top Rated Movies" shows={topRatedMovies.items} />
       <ListSection title="Top Rated Tv Series" shows={topRatedTvShows.items} />
     </>
   );
