@@ -2,8 +2,9 @@ import { connect } from "react-redux";
 import IShow, { MediaType } from "../../core/interfaces/IShow";
 import { RootState } from "../../store";
 import { genresIdsToString } from "../../core/helpers";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Genres, MainState } from "../../store/MainStore/MainState";
+import { motion, useAnimationControls } from "framer-motion";
 
 function Rating({ rating }: { rating: number }) {
   return (
@@ -73,32 +74,148 @@ function ShowCardGenres({ show, genres }: { show: IShow; genres: Genres }) {
 }
 
 function ShowCard({ show, genres }: { show: IShow; genres: Genres }) {
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const controls = useAnimationControls();
+
+  let isHoveringTimeoutId: number;
+  let isHoverFinishedTimeoutId: number;
+
   return (
-    <article
-      className="flex self-center flex-col items-stretch max-w-[300px] min-w-[300px] h-[450px] mr-4 bg-center bg-no-repeat bg-cover"
+    <motion.article
+      className="flex self-center items-stretch max-w-[300px] min-w-[300px] h-[450px] mr-4 bg-center bg-no-repeat bg-cover"
       style={{
         backgroundImage: `url('${show.posterPath}')`,
       }}
+      onHoverStart={(_) => {
+        if (isHoverFinishedTimeoutId)
+          window.clearTimeout(isHoverFinishedTimeoutId);
+
+        isHoveringTimeoutId = setTimeout(() => {
+          setIsHovered(true);
+          controls.start("hovered");
+        }, 1500);
+      }}
+      onHoverEnd={(_) => {
+        if (isHoveringTimeoutId) window.clearTimeout(isHoveringTimeoutId);
+
+        isHoverFinishedTimeoutId = setTimeout(() => {
+          setIsHovered(false);
+          controls.start("initial");
+        }, 2500);
+      }}
+      variants={{
+        initial: {
+          width: "300px",
+          maxWidth: "300px",
+          marginRight: "16px",
+          transition: {
+            duration: 0.25,
+            ease: "linear",
+          },
+        },
+        hovered: {
+          width: "800px",
+          maxWidth: "800px",
+          marginRight: "520px",
+          transition: {
+            duration: 0.25,
+            ease: "linear",
+          },
+        },
+      }}
+      animate={controls}
     >
-      <div className="flex flex-col flex-1 items-stretch border border-blue-800 hover:border-yellow-400 hover:bg-black/[0.54] cursor-pointer transition-colors self-stretch">
-        <Rating rating={show.voteAverage} />
-        <div className="flex-1"></div>
-        <span className="my-2 mx-3 self-start border-gray-800 text-black font-bold px-2 py-[1px] uppercase text-sm rounded-md flex items-center bg-yellow-300 border-4">
-          {show.mediaType === MediaType.Movie ? "Movie" : "TV Show"}
-        </span>
-        <div className="flex-col  bg-black/[0.76] border-t border-yellow-600 flex items-stretch py-2 px-2">
-          <div className="flex">
-            <h1
-              className="text-xl font-bold truncate text-white px-2"
-              title={show.name ?? show.title}
+      <div className="flex flex-col items-stretch self-stretch">
+        <div
+          className={`flex flex-col flex-1 items-stretch border hover:border-yellow-600 hover:bg-black/[0.54] cursor-pointer transition-colors self-stretch w-[300px]
+            ${
+              isHovered
+                ? " border-yellow-600 bg-black/[0.54]"
+                : " border-blue-800"
+            }
+          `}
+        >
+          <Rating rating={show.voteAverage} />
+          <div className="flex-1 items-center flex flex-col justify-center">
+            <motion.button
+              className={`bg-gray-800 text-sm rounded-md ring-2 ring-blue-300 px-3 py-1 text-white font-bold hover:underline invisible`}
+              animate={controls}
+              variants={{
+                initial: {
+                  opacity: 0,
+                  visibility: "hidden",
+                  transition: {
+                    duration: 0.5,
+                    ease: "circOut",
+                  },
+                },
+                hovered: {
+                  opacity: 1,
+                  visibility: "visible",
+                  transition: {
+                    duration: 0.5,
+                    ease: "circIn",
+                  },
+                },
+              }}
             >
-              {show.name ?? show.title}
-            </h1>
+              Learn More
+            </motion.button>
           </div>
-          <ShowCardGenres show={show} genres={genres} />
+          <span className="my-2 mx-3 self-start border-gray-800 text-black font-bold px-2 py-[1px] uppercase text-sm rounded-md flex items-center bg-yellow-300 border-4">
+            {show.mediaType === MediaType.Movie ? "Movie" : "TV Show"}
+          </span>
+          <div className="flex-col bg-black/[0.76] border-t border-yellow-600 flex items-stretch py-2 px-2">
+            <div className="flex">
+              <h1
+                className="text-xl font-bold truncate text-white px-2"
+                title={show.name ?? show.title}
+              >
+                {show.name ?? show.title}
+              </h1>
+            </div>
+            <ShowCardGenres show={show} genres={genres} />
+          </div>
         </div>
       </div>
-    </article>
+      <motion.div
+        className="min-w-[0px] border border-l-0 bg-gray-800 w-0 invisible border-yellow-600 flex items-stretch"
+        animate={controls}
+        variants={{
+          initial: {
+            opacity: 0,
+            visibility: "hidden",
+            width: "0px",
+            minWidth: "0px",
+            transition: {
+              duration: 0.25,
+              ease: "easeIn",
+            },
+          },
+          hovered: {
+            opacity: 100,
+            visibility: "visible",
+            width: "500px",
+            minWidth: "500px",
+            transition: {
+              duration: 0.25,
+              ease: "easeIn",
+            },
+          },
+        }}
+      >
+        {isHovered && (
+          <iframe
+            className="flex-1"
+            src="https://www.youtube.com/embed/EzFXDvC-EwM?si=dBFthv1aQD2Od0ET&autoplay=1"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        )}
+      </motion.div>
+    </motion.article>
   );
 }
 

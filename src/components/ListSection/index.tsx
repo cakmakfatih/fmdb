@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import IShow from "../../core/interfaces/IShow";
-import { MaxWidthLayout } from "../../layout/MainLayout";
+import { MaxWidthLayoutComponent } from "../../layout/MainLayout";
 import ShowCard from "../ShowCard";
+import { motion } from "framer-motion";
 
 export default function ListSection({
   title,
@@ -31,12 +32,26 @@ export default function ListSection({
   };
 
   return (
-    <section className="py-4 flex items-center justify-center">
-      <MaxWidthLayout className="text-white flex-col items-stretch">
+    <motion.section
+      initial={{
+        opacity: 0,
+        translateX: 1 * (window.innerWidth / 2),
+      }}
+      whileInView={{
+        opacity: 1,
+        translateX: 0,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      viewport={{ once: true }}
+      className="py-4 flex items-center justify-center overflow-x-hidden"
+    >
+      <MaxWidthLayoutComponent className="text-white flex-col items-stretch">
         <header className="border-b border-white/[0.24]">
           <h1 className="text-3xl p-4">{title}</h1>
         </header>
-        <div className="flex items-stretch w-full px-2">
+        <div className="flex items-stretch w-full px-2 overflow-x-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -76,7 +91,7 @@ export default function ListSection({
             />
           </svg>
         </div>
-      </MaxWidthLayout>
-    </section>
+      </MaxWidthLayoutComponent>
+    </motion.section>
   );
 }

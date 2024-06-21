@@ -1,4 +1,4 @@
-﻿import { MaxWidthLayout } from "../../layout/MainLayout";
+﻿import { MaxWidthLayoutComponent } from "../../layout/MainLayout";
 import IShow from "../../core/interfaces/IShow";
 import { motion } from "framer-motion";
 import { connect } from "react-redux";
@@ -74,7 +74,7 @@ function MainContentItem(props: {
       <div className="h-[65vh] from-black absolute flex w-full flex-col bg-gradient-to-t to-70%">
         <div className="select-none flex-1"></div>
         <div className="justify-end py-4 flex flex-col items-center px-2 from-black to-100% bg-gradient-to-t">
-          <MaxWidthLayout className="flex-col items-stretch pb-4 px-4">
+          <MaxWidthLayoutComponent className="flex-col items-stretch pb-4 px-4">
             <div className="flex items-center">
               <h1 className="mr-1 text-4xl drop-shadow-2xl font-bold px-2 max-w-[700px]">
                 {show.title ?? show.name}
@@ -144,7 +144,7 @@ function MainContentItem(props: {
                 </span>
               </button>
             </div>
-          </MaxWidthLayout>
+          </MaxWidthLayoutComponent>
         </div>
       </div>
     </>

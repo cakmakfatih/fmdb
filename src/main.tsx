@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/Home/index.ts";
-import MainLayout from "./layout/MainLayout/";
+import MainLayoutComponent from "./layout/MainLayout/";
 import { Provider } from "react-redux";
 import store from "./store/";
 import { homeLoadTrending } from "./store/HomeStore/HomeAction.ts";
@@ -59,10 +59,10 @@ window.onscroll = (_) => {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <MainLayout>
+      <MainLayoutComponent>
         <RouterProvider router={router}></RouterProvider>
         <ShowDetailModal />
-      </MainLayout>
+      </MainLayoutComponent>
     </Provider>
   </React.StrictMode>
 );

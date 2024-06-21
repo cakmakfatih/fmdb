@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { HeaderComponent } from "./HeaderComponent";
+import { HeaderComponent } from "./HeaderComponent.1";
 import { RootState } from "../../store";
 import { MainState } from "../../store/MainStore/MainState";
 
